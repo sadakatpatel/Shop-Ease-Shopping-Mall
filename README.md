@@ -11,6 +11,16 @@ through an address and payment-method checkout flow. The demo catalog contains
 59 clothing products. Checkout supports UPI, card and cash-on-delivery method
 selection; a payment gateway is not integrated.
 
+## Screenshots
+
+### Storefront
+
+![PATEL MALL storefront](./screenshots/storefront-home.png)
+
+### Clothing products
+
+![Clothing product listings](./screenshots/clothing-products.png)
+
 ## Highlights
 
 - Browse age-based and style-based clothing categories.
