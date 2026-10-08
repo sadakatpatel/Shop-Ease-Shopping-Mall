@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}{{ product.name }} - ShopEase{% endblock %}
+{% block content %}
+<div class="container page">
+  <div class="breadcrumbs">Home <i class="fa-solid fa-chevron-right"></i> {{ product.category }} <i class="fa-solid fa-chevron-right"></i> {{ product.name }}</div>
+  <div class="detail">
+    <div class="gallery"><img src="{{ product.image }}" alt="{{ product.name }}"></div>
+    <div class="detail-info">
+      <p class="muted">{{ product.brand }}</p>
+      <h1>{{ product.name }}</h1>
+      <div class="ratingbig"><span>{{ product.rating }} ★</span> {{ product.reviews }} ratings & reviews</div>
+      <div class="bigprice">₹{{ '{:,.0f}'.format(product.price) }} {% if product.old_price %}<del>₹{{ '{:,.0f}'.format(product.old_price) }}</del>{% endif %}<b>{{ product.discount }}% OFF</b></div>
+      <p class="stock"><i class="fa-solid fa-circle"></i> In Stock</p>
+      <div class="options">
+        <b>Color</b><div><button>●</button><button>●</button><button>●</button><button>●</button></div>
+        <b>Quantity</b>
+        <div class="qty"><button type="button" onclick="changeQty(-1)">−</button><input id="qty" value="1" readonly><button type="button" onclick="changeQty(1)">+</button></div>
+      </div>
+      <div class="detail-actions">
+        <button class="btn yellow add-detail" data-id="{{ product.id }}">Add to Cart</button>
+        <form method="post" action="{{ url_for('buy_now', product_id=product.id) }}">
+          <input type="hidden" name="quantity" id="buyNowQuantity" value="1">
+          <button class="btn outline" type="submit">Buy Now</button>
+        </form>
+      </div>
+      <div class="perks"><span><i class="fa-solid fa-rotate"></i> 7 Days Return</span><span><i class="fa-solid fa-truck"></i> Free Shipping</span><span><i class="fa-solid fa-shield"></i> Secure Payment</span></div>
+    </div>
+  </div>
+  <div class="tabs"><b>Description</b><span>Specifications</span><span>Reviews</span><p>{{ product.description }}</p></div>
+  <section class="section">
+    <div class="section-head"><h2>{{ related_title }}</h2></div>
+    <div class="product-grid">{% for p in related %}{% include '_card.html' %}{% endfor %}</div>
+  </section>
+</div>
+{% endblock %}
+{% block scripts %}
+<script>
+function changeQty(n) {
+  const quantity = document.getElementById('qty');
+  quantity.value = Math.max(1, Number(quantity.value) + n);
+  document.getElementById('buyNowQuantity').value = quantity.value;
+}
+</script>
+{% endblock %}

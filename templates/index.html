@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}ShopEase - Clothing Store{% endblock %}
+{% block content %}
+<div class="container hero-area">
+  <aside class="category-panel">
+    {% for c in categories %}
+    <a href="{{ url_for('products', category=c.name) }}"><i class="fa-solid {{ c.icon }}"></i><span>{{ c.name }}</span><i class="fa-solid fa-chevron-right"></i></a>
+    {% endfor %}
+    <a href="{{ url_for('products') }}"><i class="fa-solid fa-shirt"></i><span>Shop All Clothes</span><i class="fa-solid fa-chevron-right"></i></a>
+  </aside>
+  <section class="hero">
+    <div class="hero-copy">
+      <span class="eyebrow">New Season, New Style</span>
+      <h1>Every Style,<br>All in One Place</h1>
+      <p>Korean-inspired, western, ethnic and everyday fashion for everyone.</p>
+      <a class="btn yellow" href="{{ url_for('products') }}">Shop Clothes</a>
+    </div>
+    <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1000&q=85" alt="New season clothing collection">
+    <div class="dots"><b></b><b></b><b></b><b></b></div>
+  </section>
+</div>
+<div class="container service-strip">
+  <div><i class="fa-solid fa-truck-fast"></i><span><b>Free Shipping</b><small>On orders above ₹499</small></span></div>
+  <div><i class="fa-solid fa-rotate"></i><span><b>Easy Returns</b><small>Hassle-free returns</small></span></div>
+  <div><i class="fa-solid fa-shield-halved"></i><span><b>Secure Payments</b><small>100% secure payment</small></span></div>
+  <div><i class="fa-solid fa-headset"></i><span><b>24/7 Support</b><small>We're here to help</small></span></div>
+</div>
+<section class="container section" id="deals">
+  <div class="section-head"><h2>Clothing Deals For You</h2><a href="{{ url_for('products') }}">View All <i class="fa-solid fa-arrow-right"></i></a></div>
+  <div class="product-grid">{% for p in deals %}{% include '_card.html' %}{% endfor %}</div>
+</section>
+<section class="container section">
+  <div class="section-head"><h2>Korean-Inspired Fashion</h2><a href="{{ url_for('products', category='Korean Fashion') }}">Shop Korean Styles <i class="fa-solid fa-arrow-right"></i></a></div>
+  <div class="product-grid">{% for p in korean_styles %}{% include '_card.html' %}{% else %}<div class="empty">New Korean-inspired styles are coming soon.</div>{% endfor %}</div>
+</section>
+<section class="container section">
+  <div class="section-head">
+    <h2>Explore All Styles</h2>
+    <div class="chips">
+      <a class="active" href="{{ url_for('products') }}">All Clothes</a>
+      {% for c in categories %}<a href="{{ url_for('products', category=c.name) }}">{{ c.name }}</a>{% endfor %}
+    </div>
+  </div>
+  <div class="product-grid">{% for p in trending %}{% include '_card.html' %}{% endfor %}</div>
+</section>
+{% endblock %}

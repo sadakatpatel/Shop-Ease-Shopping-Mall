@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}ShopEase{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="topbar">
+  <div class="top-inner">
+    <a class="logo" href="{{ url_for('home') }}"><span class="bag"><i class="fa-solid fa-bag-shopping"></i></span><b>PATEL <span>MALL</span></b></a>
+    <form class="search" action="{{ url_for('products') }}"><input name="q" id="searchInput" value="{{ request.args.get('q','') }}" placeholder="Search for clothes, styles and brands..."><button><i class="fa-solid fa-magnifying-glass"></i></button><div id="searchSuggest"></div></form>
+    <nav class="head-actions">
+      <a href="{{ url_for('login') }}"><i class="fa-regular fa-user"></i><small>Account</small></a>
+      <a href="#" onclick="showToast('Wishlist feature ready for next step')"><i class="fa-regular fa-heart"></i><small>Wishlist</small></a>
+      <a href="{{ url_for('cart') }}" class="cart-link"><i class="fa-solid fa-cart-shopping"></i><span class="count">{{ cart_count }}</span><small>Cart</small></a>
+    </nav>
+  </div>
+</header>
+<div class="navrow"><div class="container navinner"><button class="catbtn"><i class="fa-solid fa-bars"></i> Shop Clothes</button><div class="navlinks"><a href="{{ url_for('home') }}">Home</a><a href="{{ url_for('products',category='Korean Fashion') }}">Korean</a><a href="{{ url_for('products',category='Western Wear') }}">Western</a><a href="{{ url_for('products',category='Streetwear') }}">Streetwear</a><a href="{{ url_for('products',category='Baby Clothing') }}">Baby</a><a href="{{ url_for('products',category="Kids' Clothing") }}">Kids</a><a href="{{ url_for('products',category='Teen Clothing') }}">Teens</a><a href="{{ url_for('products',category='Ethnic Wear') }}">Ethnic</a><a href="{{ url_for('products') }}">All Clothes</a></div></div></div>
+{% with messages=get_flashed_messages(with_categories=true) %}{% if messages %}<div class="flash-wrap">{% for category,msg in messages %}<div class="flash {{ category }}">{{ msg }}</div>{% endfor %}</div>{% endif %}{% endwith %}
+<main>{% block content %}{% endblock %}</main>
+<footer><div class="container footergrid"><div><a class="logo" href="{{ url_for('home') }}"><span class="bag"><i class="fa-solid fa-bag-shopping"></i></span><b>PATEL <span>MALL</span></b></a><p>Your everyday clothing store.</p></div><div><h4>Quick Links</h4><a href="{{ url_for('home') }}">Home</a><a href="{{ url_for('products') }}">Shop Clothes</a><a href="#">Contact Us</a><a href="#">FAQs</a></div><div><h4>Customer Service</h4><a href="#">Shipping Policy</a><a href="#">Return Policy</a><a href="#">Privacy Policy</a><a href="#">Terms & Conditions</a></div><div><h4>Get In Touch</h4><p><i class="fa-solid fa-envelope"></i> support@shopease.com</p><p><i class="fa-solid fa-phone"></i> +91 98765 43210</p><p><i class="fa-solid fa-location-dot"></i> Maharashtra, India</p></div></div><div class="copyright">© 2026 ShopEase. All rights reserved.</div></footer>
+<div id="toast"></div><script src="{{ url_for('static', filename='js/script.js') }}"></script>{% block scripts %}{% endblock %}
+</body></html>
